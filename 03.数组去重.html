@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组去重</title>
+</head>
+
+<body>
+    <script>
+        var arr = [1, 2, '3', 3, 21, 3, 1, '1', 'a', 'a'];
+        Array.prototype.unique = function () {
+            var newArr = [];
+            var flag = true;
+            var i = this.length;
+            var j = 0;
+            while (--i >= 0) {
+                j = newArr.length;
+                while (--j >= 0) {
+                    flag = newArr[j] !== this[i];
+                    if (!flag) { break; }
+                }
+                flag && newArr.push(this[i]);
+            }
+            return newArr.reverse();
+        }
+        console.log(arr.unique());
+
+        Array.prototype.unique1 = function () {
+            var obj = {}, newArr = [];
+            //优化循环j--的问题
+            for (let i = 0; i < this.length; i++) {
+                if (obj[this[i]] == undefined) {
+                    obj[this[i]] = "";
+                    newArr.push(this[i]);
+                }
+
+
+            }
+
+
+            return newArr;
+        }
+        console.log(arr.unique1());
+
+        Array.prototype.unique2 = function () {
+            var obj = {}, newArr = [];
+            //优化循环j--的问题
+            for (let i = 0; i < this.length; i++) {
+                if (obj[this[i]] == undefined || obj[this[i]] !== this[i]) {
+                    obj[this[i]] = this[i];
+                    newArr.push(this[i]);
+                }
+
+
+            }
+
+
+            return newArr;
+        }
+        console.log(arr.unique2());
+
+        Array.prototype.unique3 = function () {
+            var obj = {}, newArr = [], i = this.length;
+            //优化循环j--的问题
+
+            while (--i >= 0) {
+                (obj[this[i]] == undefined || obj[this[i]] !== this[i]) && (obj[this[i]] = this[i], newArr.push(this[i]));
+
+            }
+
+            return newArr;
+        }
+        console.log(arr.unique3());
+
+    </script>
+</body>
+
+</html>
